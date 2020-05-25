@@ -1,0 +1,68 @@
+package chooseRedmiNote8Pro;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class FirstTest {
+
+    MainPaje mainPaje;
+    WebDriver webDriver;
+
+
+    @Before
+    public void setUp(){
+        webDriver = new ChromeDriver();
+
+        mainPaje = new MainPaje(webDriver);
+        System.out.println("Step:2, open ya.market");
+        webDriver.get("https://market.yandex.ru/");
+
+    }
+
+    @Test
+    public void FirstTest() throws InterruptedException {
+        ChromeDriver driver = new ChromeDriver();
+        
+        
+        System.out.println("Step:3 Open Electronic -> Mobile Phone");
+        webDriver.findElement(By.linkText("Электроника")).click();
+        wait();
+        
+        webDriver.findElement(By.linkText("Мобильные телефоны")).click();
+        wait();
+
+
+        System.out.println("Step:4, Sorting Xiaomy");
+        webDriver.findElement(By.tagName("input")).findElement(By.name("Производитель Xiaomy")).click();
+        
+
+        System.out.println("Step:5, Source Readmi Note 8 Pro 6/64GB");
+        webDriver.findElement(By.linkText("Смартфон Redmi Note 8 4/64GB"));
+        wait();
+        String titleXia = driver.getTitle();
+        Assert.assertTrue(titleXia.equals("Смартфон Xiaomi Redmi Note 8 4/64GB купить по цене 11650 на Яндекс.Маркете"));
+
+        System.out.println("Step:6, Validate Haracteristic");
+        webDriver.findElement(By.tagName("ul:nth-child(2)")).click();
+        String titleHar = driver.getTitle();
+        Assert.assertTrue(titleHar.equals("Характеристики  модели Смартфон Xiaomi Redmi Note 8 4/64GB на Яндекс.Маркете"));
+        
+        /*или так
+        System.out.println("Step:6, Validate Haracteristic");
+        Assert.assertEquals()....*/
+        
+        
+    }
+    @After
+    public void tearDown() {
+        if (webDriver != null)
+            webDriver.quit();
+    }
+}
+
